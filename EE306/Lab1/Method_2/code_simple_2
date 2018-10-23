@@ -1,0 +1,43 @@
+; EE 306: Introduction to Computing
+; Fall 2018 - Cuevas
+; 
+;Name: Yongye Zhu
+;EID: yz224493
+;Recitation: Friday 9-10
+;
+; Title: Rotate Register
+; Author: Jerry Yang
+; Created on: 9/6/2018
+;
+; This program implements R0 as a rotate register.
+; Inputs: 
+; 	R0 - Data to rotate
+; 	R1 - How many times to rotate
+;	 If R1<0, rotate right |R1| times
+;	 If R1>0, rotate left R1 times.
+;
+; Outputs:
+; 	R0 - Rotated data
+;  
+
+
+.ORIG X3000
+	AND R4, R4, #0			;use to store leftside bit
+	ADD R1, R1, #0
+	BRZ #13
+	BRN #10				;if right shift, then rotate (16 - numbers of left shift time)
+	ADD R1, R1, #-1
+LOOP	BRN #10
+	ADD R0, R0, #0
+	BRZP #1
+	ADD R4, R4, #1
+	ADD R0, R0, R0
+	ADD R0, R0, R4
+	AND R4, R4, #0			;clear after each use
+	ADD R1, R1, #-1
+	BRNZP LOOP
+	ADD R1, R1, #15
+	BRZP LOOP
+	HALT
+.END
+		

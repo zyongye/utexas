@@ -1,0 +1,5 @@
+.ORIG x2003
+node4	.FILL	x6361
+	.FILL	#82
+	.FILL	x0000
+.END

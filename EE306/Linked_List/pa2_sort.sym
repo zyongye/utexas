@@ -1,0 +1,13 @@
+//Symbol Name		Page Address
+//----------------	------------
+//	COUNT                   2503
+//	C_ICTR                  251B
+//	C_OCTR                  2521
+//	DELP                    252A
+//	END                     2527
+//	HEADER                  252B
+//	LOAD_V                  250C
+//	N_SWAP                  251A
+//	SORT                    2507
+//	SWAP                    2515
+//	S_ICTR                  250B

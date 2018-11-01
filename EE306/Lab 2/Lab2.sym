@@ -1,0 +1,31 @@
+//Symbol Name		Page Address
+//----------------	------------
+//	A                       309F
+//	ADD_S                   303D
+//	B                       30A0
+//	C                       30A1
+//	CHECK_C                 3015
+//	C_2A1                   3055
+//	C_2AL                   3086
+//	C_2AS                   306F
+//	C_LGR                   307E
+//	C_R2                    3009
+//	C_SIGN                  305E
+//	C_SIGNL                 3090
+//	C_SIGNS                 3079
+//	DIVIDE1                 3059
+//	DIVIDEL                 308B
+//	DIVIDES                 3074
+//	END                     309E
+//	GRT_E                   3037
+//	MULT1                   301D
+//	MULT2                   3020
+//	N2A                     30A2
+//	NO_S                    3030
+//	ONE_S                   304B
+//	OUTPUT0                 3095
+//	OUTPUT1                 3098
+//	STEP2                   300D
+//	STEP3                   3027
+//	S_ROOT                  3033
+//	TWO_S                   3063

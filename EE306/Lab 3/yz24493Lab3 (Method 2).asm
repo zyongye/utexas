@@ -246,7 +246,6 @@ LD_NUMS	AND	R1, R1, #0	;initialize all the value needed
 	
 BY_ROWS	JSR	GRID_ADDRESS
 	ADD	R3, R0, #0	;load the grid address into R3
-	LD	R0, BLOCKS
 	JSR	COUNT_BOMBS
 	ADD	R0, R0, #0
 	BRNZ	#2
@@ -307,9 +306,8 @@ ASCII	.FILL	x30	;use to convert the numbers into ASCII numbers
 
 
 ;  Register Usage: 
-;			R0, R1, R2: input and output, R0 is also a bomb counter
-;			R3: head of the lined list
-;			R4: 
+;			R0, R1, R2: input and output
+;			R3, R4: used for input for sub_subroutine
 ;			R5: used output of the sub_subroutine 
 ;			R6: temp value
 
@@ -324,7 +322,8 @@ COUNT_BOMBS
 	
 ;  check if the location contains a bomb
 
-	ADD	R3, R0, #0
+	ADD	R3, R1, #0
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRP	ISBOMB
@@ -352,26 +351,20 @@ NOTABOMB
 	ADD	R7, R2, R6
 	BRZ	RIGHT
 
-	ADD	R1, R1, #0
-	ADD	R2, R2, #1
+	ADD	R3, R1, #0
+	ADD	R4, R2, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1			;bomb detected
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
 
-	ADD	R1, R1, #0
-	ADD	R2, R2, #-1
+	ADD	R3, R1, #0
+	ADD	R4, R2, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
 
 	
@@ -382,136 +375,95 @@ NOTABOMB
 
 
 
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
 
 
-	ADD	R1, R1, #1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
 
-	ADD	R2, R2, #-1
-	ADD	R1, R1, #-1
+	ADD	R4, R2, #-1
+	ADD	R3, R1, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
 
 
-	ADD	R2, R2, #1
-	ADD	R1, R1, #-1
+	ADD	R4, R2, #1
+	ADD	R3, R1, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
 
-	ADD	R2, R2, #-1
-	ADD	R1, R1, #1
+	ADD	R4, R2, #-1
+	ADD	R3, R1, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
 
-	ADD	R2, R2, #1
-	ADD	R1, R1, #1
+	ADD	R4, R2, #1
+	ADD	R3, R1, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
 	BR	RST3
 
-UP_MID	ADD	R1, R1, #1
-	ADD	R2, R2, #0
+UP_MID	ADD	R3, R1, #1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #1
-	ADD	R2, R2, #1
+	ADD	R3, R1, #1
+	ADD	R4, R2, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #1
-	ADD	R2, R2, #-1
+	ADD	R3, R1, #1
+	ADD	R4, R2, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
 	BR	RST3
-
-ISBOMB	AND	R0, R0, #0
-	ADD	R0, R0, #-1
-	BR	RST3
-
-SAVE3R1	.BLKW	1
-SAVE3R2	.BLKW	1
-SAVE3R3	.BLKW	1
-SAVE3R4	.BLKW	1
-SAVE3R5	.BLKW	1
-SAVE3R6	.BLKW	1
-RET3	.BLKW	1
-HEADERS	.FILL	x6000
-
 
 DOWN_MID
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #1
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #-1
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
@@ -519,71 +471,56 @@ DOWN_MID
 	BR	RST3
 
 
-LEFT	ADD	R1, R1, #0
-	ADD	R2, R2, #1
+LEFT	ADD	R3, R1, #0
+	ADD	R4, R2, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 	
 	ADD	R1, R1, #0
 	BRZ	UP_LEFT
 	ADD	R7, R1, R6
 	BRZ	DOWN_LEFT
 
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #1
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #1
-	ADD	R2, R2, #1
+	ADD	R3, R1, #1
+	ADD	R4, R2, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
 	BR	RST3
 
-UP_LEFT	ADD	R1, R1, #1
-	ADD	R2, R2, #0
+UP_LEFT	ADD	R3, R1, #1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #1
-	ADD	R2, R2, #1
+	ADD	R3, R1, #1
+	ADD	R4, R2, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
@@ -591,72 +528,57 @@ UP_LEFT	ADD	R1, R1, #1
 	BR	RST3
 
 DOWN_LEFT
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #1
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
 	BR	RST3
 		
-RIGHT	ADD	R1, R1, #0
-	ADD	R2, R2, #-1
+RIGHT	ADD	R3, R1, #0
+	ADD	R4, R2, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 	
 	ADD	R1, R1, #0
 	BRZ	UP_RIGHT
 	ADD	R7, R1, #0
 	BRZ	DOWN_RIGHT
 
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #1
-	ADD	R2, R2, #-1
+	ADD	R3, R1, #1
+	ADD	R4, R2, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 	
 
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #-1
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
@@ -664,18 +586,15 @@ RIGHT	ADD	R1, R1, #0
 	BR	RST3
 
 UP_RIGHT
-	ADD	R1, R1, #1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #1
-	ADD	R2, R2, #-1
+	ADD	R3, R1, #1
+	ADD	R4, R2, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
@@ -683,24 +602,24 @@ UP_RIGHT
 	BR	RST3
 	
 DOWN_RIGHT
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #0
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #0
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
-	LD	R1, SAVE3R1
-	LD	R2, SAVE3R2
-	LD	R3, HEADERS
 
-	ADD	R1, R1, #-1
-	ADD	R2, R2, #-1
+	ADD	R3, R1, #-1
+	ADD	R4, R2, #-1
 	JSR	CHECK_BOMB
 	ADD	R5, R5, #0
 	BRZ	#1
 	ADD	R0, R0, #1
 	BR	RST3
 	
+ISBOMB	AND	R0, R0, #0
+	ADD	R0, R0, #-1
+	BR	RST3
 
 RST3	LD	R1, SAVE3R1		;restore value and return
 	LD	R2, SAVE3R2
@@ -711,13 +630,20 @@ RST3	LD	R1, SAVE3R1		;restore value and return
 	LD	R7, RET3
 	RET
 
+SAVE3R1	.BLKW	1
+SAVE3R2	.BLKW	1
+SAVE3R3	.BLKW	1
+SAVE3R4	.BLKW	1
+SAVE3R5	.BLKW	1
+SAVE3R6	.BLKW	1
+RET3	.BLKW	1
+
+
 
 ;***********************************************************
 ; CHECK_BOMB
-; Input: R1: the row number
-;	 R2: the col number
-;	 R3 contains the header of the linked list
-;
+; Input: R3 has the row number (0-3)
+;        R4 has the column number (0-3)
 ; Output: if the location contains bombs, return R5 = 1;
 ;	  if there is no bomb in that location, return R5 = 0;
 ;***********************************************************
@@ -725,11 +651,8 @@ RST3	LD	R1, SAVE3R1		;restore value and return
 
 ; Compare the content in the address and the ASCII of bomb "*"
 ; Register Usage:
-;			R1: row num 
-;			R2: col num			
-;			R3: header of the linked list or the address of the node
-;			R4: row number in the linked list
-;			R5: col number in the linked list
+;			R3, R4, R5: Input and Output
+;			R1, R2: temp store for calling subroutine4
 ;			R6: Temp register that stores the compared value
 
 
@@ -737,43 +660,31 @@ CHECK_BOMB
 	ST	R7, SS_RET
 	ST	R0, SS_R0
 	ST	R1, SS_R1
-	ST	R3, SS_R3
 	ST	R2, SS_R2
-	ST	R4, SS_R4
 	ST	R6, SS_R6
 	
-	NOT	R1, R1
-	ADD	R1, R1, #1
-	NOT	R2, R2
-	ADD	R2, R2, #1
-
-	LDR	R3, R3, #0
-CK_ROW	ADD	R3, R3, #0
-	BRZ	NOT_BOMB
-	LDR	R4, R3, #0
-	ADD	R6, R1, R4
-	BRNP	NEXT_NODE
-	LDR	R5, R3, #1
-	ADD	R6, R2, R5
-	BRNP	NEXT_NODE
-	BRNZP	D_BOMB
-
-NEXT_NODE
-	LDR	R3, R3, #2
-	BR	CK_ROW
+	ADD	R1, R3, #0
+	ADD	R2, R4, #0
 	
-D_BOMB	AND	R5, R5, #0
+
+JSR	GRID_ADDRESS
+	LD	R1, ASC_BOMB
+	LDR	R2, R0, #0
+	NOT	R1, R1
+	ADD	R1, R1, #1		;2'S COMPLEMENT
+	ADD	R6, R1, R2
+	BRNP	NO_BOMB
+
+D_BOMB	AND	R5, R5, #0		;bomb detected, R0 = -1 and return
 	ADD	R5, R5, #1
 	BR	RST_V
-	
-NOT_BOMB
-	AND	R5, R5, #0
+
+NO_BOMB	AND	R5, R5, #0
+
 
 RST_V	LD	R0, SS_R0
 	LD	R1, SS_R1
 	LD	R2, SS_R2
-	LD	R3, SS_R3
-	LD	R4, SS_R4
 	LD	R6, SS_R6
 	LD	R7, SS_RET
 	RET
@@ -782,9 +693,7 @@ SS_RET	.BLKW	1
 SS_R0	.BLKW	1
 SS_R1	.BLKW	1
 SS_R2	.BLKW	1
-SS_R3	.BLKW	1
 SS_R6	.BLKW	1
-SS_R4	.BLKW	1
 ASC_BOMB	.STRINGZ	"*"
 
 ;***********************************************************

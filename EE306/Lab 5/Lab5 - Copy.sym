@@ -1,0 +1,30 @@
+//Symbol Name		Page Address
+//----------------	------------
+//	COUNTER                 30A8
+//	DATE                    30CE
+//	DENIED                  3076
+//	EID                     30C0
+//	ENINT                   30AD
+//	ETR                     3082
+//	IN_MSG                  3084
+//	KBISR                   30AA
+//	KBISRV                  30AB
+//	KBSR                    30AC
+//	NAME                    30AE
+//	NH16                    3081
+//	NH_FIVE                 307F
+//	NH_ONE                  307E
+//	NH_SIX                  3080
+//	NH_ZERO                 307D
+//	OUT_MSG                 3096
+//	SP                      30A9
+//	STATE0                  3010
+//	STATE1                  301C
+//	STATE2                  302B
+//	STATE3                  3037
+//	STATE4A                 3049
+//	STATE4B                 305E
+//	STATE5                  3070
+//	STICKER                 30FC
+//	ST_C                    30A7
+//	TITLE                   30E0

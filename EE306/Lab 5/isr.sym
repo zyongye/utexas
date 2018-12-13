@@ -1,0 +1,6 @@
+//Symbol Name		Page Address
+//----------------	------------
+//	COUNT                   A00A
+//	KBDR                    A00B
+//	SAVER0                  A008
+//	ST_C                    A009
